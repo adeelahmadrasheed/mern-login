@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import avatar from "../assets/profile.png";
 import styles from "../styles/Username.module.css";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
@@ -15,7 +14,7 @@ const Recovery = () => {
     initialValues: {
       recovery: "",
     },
-    validate: 'recoveryValidate',
+    validate: "recoveryValidate",
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
@@ -35,30 +34,26 @@ const Recovery = () => {
             </span>
           </div>
           <form className='py-1' onSubmit={formik.handleSubmit}>
-            <div className='profile flex justify-center py-4'>
-              <img
-                className={styles.profile_img}
-                src={avatar}
-                alt='avatar'></img>
-            </div>
-
-            <div className='textbox flex flex-col items-center gap-6'>
+            <div className='textbox flex flex-col items-center gap-2'>
+              <span className='py-1 text-sm text-left text-gray-500'>
+                Input 6 Digit OTP sent on your registered email.
+              </span>
               <input
                 {...formik.getFieldProps("recovery")}
                 className={styles.textbox}
                 type='text'
-                placeholder='Recovery'
+                placeholder='OTP'
               />
               <button className={styles.btn} type='submit'>
-                Login
+                Reset Password
               </button>
             </div>
 
             <div className='text-center py-4'>
               <span>
-                Forgot Password?{" "}
+                Didn't received code?{" "}
                 <Link className='text-red-500' to='/recovery'>
-                  Recover Now
+                  Resend
                 </Link>
               </span>
             </div>

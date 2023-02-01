@@ -1,24 +1,62 @@
-import React, { Component } from 'react'
+import React from "react";
+import styles from "../styles/Username.module.css";
+import { Toaster } from "react-hot-toast";
+import { useFormik } from "formik";
+import { resetPasswordValidation } from "../helper/validation";
 
-export default class Reset extends Component {
-  render() {
-    return (
-      <div>Reset</div>
-    )
-  }
-}
+/* // **
 
+ import modules above this line ** // */
 
-// class Reset extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     // Don't call this.setState() here!
-//     this.state = { counter: 0 };
-//   }
+const Reset = () => {
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      confirm_pwd: "",
+    },
+    validate: resetPasswordValidation,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
 
-//   render() {
-//     return <div className="flex">Reset</div>;
-//   }
-// }
+  return (
+    <div className='container mx-auto'>
+      <Toaster position='top-center' reverseOrder='false'></Toaster>
+      <div className='flex justify-center items-center h-screen'>
+        <div className={styles.glass}>
+          <div className='title flex flex-col items-center'>
+            <h4 className='text-5xl font-bold'>Reset</h4>
+            <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
+              Choose new password
+            </span>
+          </div>
+          <form className='py-1' onSubmit={formik.handleSubmit}>
+            <div className='textbox flex flex-col items-center gap-6'>
+              <input
+                {...formik.getFieldProps("password")}
+                className={styles.textbox}
+                type='password'
+                placeholder='New Password'
+              />
+              <input
+                {...formik.getFieldProps("confirm_pwd")}
+                className={styles.textbox}
+                type='confirm_pwd'
+                placeholder='Confirm Password'
+              />
 
-// export default Reset;
+              <button className={styles.btn} type='submit'>
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Reset;
